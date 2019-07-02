@@ -35,7 +35,6 @@
 # has 2 optional args
 # util_add_cppcheck EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
 function(util_add_cppcheck)
-message("adding cppcheck")
 option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 if(USE_CPPCHECK)
     find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
@@ -55,12 +54,10 @@ if(USE_CPPCHECK)
     if((PARSED_EXTRA_FLAG) AND (PARSED_OVERRIDE_FLAG))
         message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
     endif()
-    if(NOT DEFINED PARSED_EXTRA_FLAG)
-        message("extra flag defined with: ${PARSED_EXTRA_FLAG}")
+    if(PARSED_EXTRA_FLAG)
         string(APPEND cppcheck_flag " " ${PARSED_EXTRA_FLAG})
-        endif()
-    if(NOT DEFINED PARSED_OVERRIDE_FLAG)
-        message("override flag defined with: ${PARSED_OVERRIDE_FLAG}")
+    endif()
+    if(PARSED_OVERRIDE_FLAG)
         set(cppcheck_flag ${PARSED_OVERRIDE_FLAG})
     endif()
 
