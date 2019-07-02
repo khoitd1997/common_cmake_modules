@@ -52,7 +52,7 @@ if(USE_CPPCHECK)
     # set(oneValueArgs EXTRA_FLAG OVERRIDE_FLAG)
     cmake_parse_arguments(PARSED "" "EXTRA_FLAG;OVERRIDE_FLAG" "" ${ARGN})
 
-    if(DEFINED PARSED_EXTRA_FLAG AND DEFINED PARSED_OVERRIDE_FLAG)
+    if((PARSED_EXTRA_FLAG) AND (PARSED_OVERRIDE_FLAG))
         message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
     endif()
     if(NOT DEFINED PARSED_EXTRA_FLAG)
