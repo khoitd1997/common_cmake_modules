@@ -23,6 +23,7 @@ if(USE_${upper_program_name})
 
     list(APPEND ${append_var} ${program_flag})
     message("append var is ${${append_var}}")
+    message("program flag is ${${program_flag}}")
 endif()
 endmacro()
 
@@ -32,8 +33,7 @@ function(util_add_cppcheck)
 util_add_program_base(cppcheck 
                       OFF 
                       "--enable=all --force --suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt" 
-                      CMAKE_CXX_CPPCHECK
-                      )
+                      CMAKE_CXX_CPPCHECK)
 
 # option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 # if(USE_CPPCHECK)
