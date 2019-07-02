@@ -1,5 +1,3 @@
-set(util_cmake_tool_dir ${CMAKE_CURRENT_LIST_DIR})  
-
 macro(util_add_program_base program_name default_switch append_var)
 string(TOUPPER ${program_name} upper_program_name)
 option(USE_${upper_program_name} "run ${program_name}" ${default_switch})
@@ -38,7 +36,7 @@ util_add_program_base(cppcheck
                       "--enable=all"
                       "-q"
                       "--force"
-                      "--suppressions-list=${util_cmake_tool_dir}/cppcheck_suppression.txt")
+                      "--suppressions-list=${util_cmake_dir}/cppcheck_suppression.txt")
 
 # option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 # if(USE_CPPCHECK)
