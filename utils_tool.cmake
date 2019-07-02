@@ -29,7 +29,7 @@ endmacro()
 function(util_add_cppcheck)
 util_add_program_base(cppcheck 
                       OFF 
-                      "--enable=all -q --force --suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt" 
+                      "--enable=all --force --suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt" 
                       CMAKE_CXX_CPPCHECK
                       )
 
