@@ -23,7 +23,7 @@ if(USE_${upper_program_name})
 
     list(APPEND ${append_var} ${program_flag})
     message("append var is ${${append_var}}")
-    message("program flag is ${${program_flag}}")
+    message("program flag is ${program_flag}")
 endif()
 endmacro()
 
