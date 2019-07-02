@@ -1,4 +1,4 @@
-macro(util_add_program_base program_name default_switch default_flag append_var)
+macro(util_add_program_base program_name default_switch append_var)
 string(TOUPPER ${program_name} upper_program_name)
 option(USE_${upper_program_name} "run ${program_name}" ${default_switch})
 if(USE_${upper_program_name})
@@ -13,7 +13,7 @@ if(USE_${upper_program_name})
     message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
     endif()
 
-    set(program_flag ${default_flag})
+    set(program_flag ${ARGN})
     if(PARSED_EXTRA_FLAG)
         string(APPEND program_flag " " ${PARSED_EXTRA_FLAG})
     endif()
@@ -32,8 +32,11 @@ endmacro()
 function(util_add_cppcheck)
 util_add_program_base(cppcheck 
                       OFF 
-                      "--enable=all --force --suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt" 
-                      CMAKE_CXX_CPPCHECK)
+                      CMAKE_CXX_CPPCHECK
+                      "--enable=all"
+                      "-q"
+                      "--force"
+                      "--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt")
 
 # option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 # if(USE_CPPCHECK)
