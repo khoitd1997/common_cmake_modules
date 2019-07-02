@@ -37,7 +37,6 @@ macro(util_add_cppcheck)
                           "--suppressions-list=${util_cmake_dir}/cppcheck_suppression.txt")
 endmacro()
 
-# has 2 optional args
 # util_add_cpplint EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
 macro(util_add_cpplint)
     util_add_program_base(cpplint 
