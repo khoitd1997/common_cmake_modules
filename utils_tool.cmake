@@ -1,3 +1,5 @@
+set(util_cmake_tool_dir ${CMAKE_CURRENT_LIST_DIR})  
+
 macro(util_add_program_base program_name default_switch append_var)
 string(TOUPPER ${program_name} upper_program_name)
 option(USE_${upper_program_name} "run ${program_name}" ${default_switch})
@@ -13,30 +15,30 @@ if(USE_${upper_program_name})
     message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
     endif()
 
-    set(program_flag ${ARGN})
+    set(${program_name}_program_flag ${ARGN})
     if(PARSED_EXTRA_FLAG)
-        string(APPEND program_flag " " ${PARSED_EXTRA_FLAG})
+        string(APPEND ${program_name}_program_flag " " ${PARSED_EXTRA_FLAG})
     endif()
     if(PARSED_OVERRIDE_FLAG)
-        set(program_flag ${PARSED_OVERRIDE_FLAG})
+        set(${program_name}_program_flag ${PARSED_OVERRIDE_FLAG})
     endif()
 
-    list(APPEND ${append_var} ${program_flag})
+    list(APPEND ${append_var} ${${program_name}_program_flag})
     message("append var is ${${append_var}}")
-    message("program flag is ${program_flag}")
+    message("program flag is ${${program_name}_program_flag}")
 endif()
 endmacro()
 
 # has 2 optional args
 # util_add_cppcheck EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
-function(util_add_cppcheck)
+macro(util_add_cppcheck)
 util_add_program_base(cppcheck 
                       OFF 
                       CMAKE_CXX_CPPCHECK
                       "--enable=all"
                       "-q"
                       "--force"
-                      "--suppressions-list=${CMAKE_CURRENT_LIST_DIR}/cppcheck_suppression.txt")
+                      "--suppressions-list=${util_cmake_tool_dir}/cppcheck_suppression.txt")
 
 # option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 # if(USE_CPPCHECK)
@@ -65,4 +67,4 @@ util_add_program_base(cppcheck
 
 #     list(APPEND CMAKE_CXX_CPPCHECK ${cppcheck_flag})
 # endif()
-endfunction()
+endmacro()
