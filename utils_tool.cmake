@@ -10,7 +10,7 @@ macro(util_add_program_base program_name default_switch append_var)
         cmake_parse_arguments(PARSED "" "EXTRA_FLAG;OVERRIDE_FLAG" "" ${ARGN})
         
         if((PARSED_EXTRA_FLAG) AND (PARSED_OVERRIDE_FLAG))
-        message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
+            message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
         endif()
 
         set(${program_name}_program_flag ${ARGN})
@@ -22,8 +22,6 @@ macro(util_add_program_base program_name default_switch append_var)
         endif()
 
         list(APPEND ${append_var} ${${program_name}_program_flag})
-        message("append var is ${${append_var}}")
-        message("program flag is ${${program_name}_program_flag}")
     endif()
 endmacro()
 
@@ -47,4 +45,11 @@ macro(util_add_cpplint)
                           CMAKE_CXX_CPPLINT
                           "--filter=-legal/copyright, -whitespace/line_length, -whitespace/ending_newline, -build/c++11, -runtime/references, -whitespace/indent"
                           "--quiet")
+endmacro()
+
+macro(util_check_and_enable_test)
+    option(RUN_TEST "Run unit test as part of build" OFF)
+    if(RUN_TEST)
+        enable_testing()
+    endif()
 endmacro()
