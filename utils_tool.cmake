@@ -1,6 +1,6 @@
 macro(util_add_program_base program_name default_switch default_flag append_var)
-option(USE_${append_var} "Run ${program_name}" ${default_switch})
-if(USE_${append_var})
+option(USE_${program_name} "Run ${program_name}" ${default_switch})
+if(USE_${program_name})
     find_program(append_var NAMES ${program_name})
     if(NOT append_var)
         message(FATAL_ERROR "can't find ${program_name}")
