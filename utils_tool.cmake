@@ -35,6 +35,7 @@
 # has 2 optional args
 # util_add_cppcheck EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
 function(util_add_cppcheck)
+message("adding cppcheck")
 option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 if(USE_CPPCHECK)
     find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
