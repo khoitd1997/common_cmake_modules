@@ -7,12 +7,13 @@ if(USE_${upper_program_name})
         message(FATAL_ERROR "can't find ${program_name}")
     endif()
 
-    set(program_flag ${default_flag})
     cmake_parse_arguments(PARSED "" "EXTRA_FLAG;OVERRIDE_FLAG" "" ${ARGN})
-
+    
     if((PARSED_EXTRA_FLAG) AND (PARSED_OVERRIDE_FLAG))
-        message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
+    message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
     endif()
+
+    set(program_flag ${default_flag})
     if(PARSED_EXTRA_FLAG)
         string(APPEND program_flag " " ${PARSED_EXTRA_FLAG})
     endif()
@@ -21,6 +22,7 @@ if(USE_${upper_program_name})
     endif()
 
     list(APPEND ${append_var} ${program_flag})
+    message("append var is ${${append_var}}")
 endif()
 endmacro()
 
