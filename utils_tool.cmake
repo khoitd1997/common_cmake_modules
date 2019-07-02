@@ -32,7 +32,7 @@ endmacro()
 function(util_add_cppcheck)
 util_add_program_base(cppcheck 
                       OFF 
-                      CMAKE_CXX_CPPCHECK
+                      fkalslsd
                       "--enable=all"
                       "-q"
                       "--force"
