@@ -36,7 +36,7 @@ util_add_program_base(cppcheck
                       "--enable=all"
                       "-q"
                       "--force"
-                      "--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt")
+                      "--suppressions-list=${CMAKE_CURRENT_SOURCE_DIR}/cppcheck_suppression.txt")
 
 # option(USE_CPPCHECK "Run cppcheck on the source files" OFF)
 # if(USE_CPPCHECK)
