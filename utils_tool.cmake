@@ -49,8 +49,8 @@ if(USE_CPPCHECK)
         "--force"
         "--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppression.txt")
 
-    set(oneValueArgs EXTRA_FLAG OVERRIDE_FLAG)
-    cmake_parse_arguments(PARSED "" "${oneValueArgs}" "" ${ARGN})
+    # set(oneValueArgs EXTRA_FLAG OVERRIDE_FLAG)
+    cmake_parse_arguments(PARSED "" "EXTRA_FLAG;OVERRIDE_FLAG" "" ${ARGN})
 
     if(DEFINED PARSED_EXTRA_FLAG AND DEFINED PARSED_OVERRIDE_FLAG)
         message(FATAL_ERROR "EXTRA_FLAG and OVERRIDE_FLAG can't be defined at the same time")
