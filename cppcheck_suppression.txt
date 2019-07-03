@@ -1,6 +1,9 @@
 *:*thirdparty/*
 *:*_deps/*
+
 unusedFunction:*
 missingIncludeSystem:*
 missingInclude:*
 unmatchedSuppression:*
+syntaxError:*
+unreadVariable:*

@@ -42,8 +42,9 @@ macro(util_add_cpplint)
     util_add_program_base(cpplint 
                           OFF 
                           CMAKE_CXX_CPPLINT
-                          "--filter=-legal/copyright, -whitespace/line_length, -whitespace/ending_newline, -build/c++11, -runtime/references, -whitespace/indent"
-                          "--quiet")
+                          "--filter=-legal/copyright, -whitespace/line_length, -whitespace/ending_newline, -build/c++11, -runtime/references, -whitespace/indent, -build/printf_format"
+                          "--quiet"
+                          "--exclude_files=.*_deps/.*")
 endmacro()
 
 macro(util_check_and_enable_test)
@@ -109,16 +110,4 @@ macro(util_set_external_code_gen_option)
     set_property(DIRECTORY PROPERTY 
                            LINK_OPTIONS -fsanitize=address
                                         -fsanitize=undefined)
-    # foreach(arg IN ITEMS ${ARGN})
-        # set_target_properties(${arg} PROPERTIES CMAKE_CXX_STANDARD 17)
-        # set_property(
-        # TARGET ${arg}
-        # PROPERTY COMPILE_OPTIONS -g 
-        #                          -fsanitize=address
-        #                          -fsanitize=undefined)
-        # set_property(
-        # TARGET ${arg}
-        # PROPERTY LINK_OPTIONS -fsanitize=address 
-        #                       -fsanitize=undefined)
-    # endforeach()
 endmacro()
