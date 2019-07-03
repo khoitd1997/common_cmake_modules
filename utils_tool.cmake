@@ -44,7 +44,7 @@ macro(util_add_cpplint)
                           CMAKE_CXX_CPPLINT
                           "--filter=-legal/copyright, -whitespace/line_length, -whitespace/ending_newline, -build/c++11, -runtime/references, -whitespace/indent, -build/printf_format"
                           "--quiet"
-                          "--exclude_files=.*_deps/.*")
+                          "--exclude=*_deps/*")
 endmacro()
 
 macro(util_check_and_enable_test)
