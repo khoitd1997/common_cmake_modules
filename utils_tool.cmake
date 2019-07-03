@@ -47,6 +47,16 @@ macro(util_add_cpplint)
                           "--exclude=_deps/*")
 endmacro()
 
+# util_add_clang_tidy EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
+macro(util_add_clang_tidy)
+    util_add_program_base(cpplint 
+                          OFF 
+                          CMAKE_CXX_CLANG_TIDY
+                          "--filter=-legal/copyright, -whitespace/line_length, -whitespace/ending_newline, -build/c++11, -runtime/references, -whitespace/indent, -build/printf_format"
+                          "--quiet"
+                          "--exclude=_deps/*")
+endmacro()
+
 macro(util_check_and_enable_test)
     option(RUN_TEST "Run unit test as part of build" OFF)
     if(RUN_TEST)
@@ -72,11 +82,7 @@ macro(util_set_general_code_gen_option)
                           -Woverloaded-virtual
                           -Wsign-conversion
                           -Wconversion
-                          -Wduplicated-cond
-                          -Wduplicated-branches
-                          -Wlogical-op
                           -Wnull-dereference
-                          -Wuseless-cast
                           -Wformat=2
                           -Wdouble-promotion
                           -fasynchronous-unwind-tables
@@ -90,6 +96,14 @@ macro(util_set_general_code_gen_option)
                           -g
                           -fdiagnostics-color=always
                           -fno-omit-frame-pointer)
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        # place holder for now
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        list(APPEND util_compile_flag -Wduplicated-branches 
+                                      -Wduplicated-cond 
+                                      -Wlogical-op 
+                                      -Wuseless-cast)
+    endif()
     if(CODE_GEN_PARSED_EXTRA_COMPILE_FLAG)
         list(APPEND util_compile_flag ${CODE_GEN_PARSED_EXTRA_COMPILE_FLAG})
     endif()
