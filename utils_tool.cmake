@@ -31,7 +31,7 @@ macro(util_add_cppcheck)
     util_add_program_base(cppcheck 
                           OFF 
                           CMAKE_CXX_CPPCHECK
-                          "--enable=all"
+                          "--enable=style,performance,portability,warning"
                           "-q"
                           "--force"
                           "--suppressions-list=${util_cmake_dir}/cppcheck_suppression.txt")
