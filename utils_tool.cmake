@@ -101,8 +101,8 @@ macro(util_add_general_code_gen_option)
     add_link_options(${util_link_flag})
 endmacro()
 
-# util_set_thirdparty_code_gen_option(target1 target2)
-macro(util_set_thirdparty_code_gen_option)
+# util_set_external_code_gen_option(target1 target2)
+macro(util_set_external_code_gen_option)
     foreach(arg IN ITEMS ${ARGN})
         set_target_properties(${arg} PROPERTIES CMAKE_CXX_STANDARD 17)
         set_property(
