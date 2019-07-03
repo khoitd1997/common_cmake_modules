@@ -98,21 +98,25 @@ macro(util_set_general_code_gen_option)
     if(CODE_GEN_PARSED_EXTRA_LINK_FLAG)
         list(APPEND util_link_flag ${CODE_GEN_PARSED_EXTRA_LINK_FLAG})
     endif()
-    set(LINK_OPTIONS ${util_link_flag})
+    set(LINK_OPTIONS${util_link_flag})
 endmacro()
 
-# util_set_external_code_gen_option(target1 target2)
 macro(util_set_external_code_gen_option)
-    foreach(arg IN ITEMS ${ARGN})
-        set_target_properties(${arg} PROPERTIES CMAKE_CXX_STANDARD 17)
-        set_property(
-        TARGET ${arg}
-        PROPERTY COMPILE_OPTIONS -g 
-                                 -fsanitize=address
-                                 -fsanitize=undefined)
-        set_property(
-        TARGET ${arg}
-        PROPERTY LINK_OPTIONS -fsanitize=address 
-                              -fsanitize=undefined)
-    endforeach()
+    set(COMPILE_OPTIONS  -g 
+                         -fsanitize=address
+                         -fsanitize=undefined)
+    set(LINK_OPTIONS -fsanitize=address
+                     -fsanitize=undefined)
+    # foreach(arg IN ITEMS ${ARGN})
+        # set_target_properties(${arg} PROPERTIES CMAKE_CXX_STANDARD 17)
+        # set_property(
+        # TARGET ${arg}
+        # PROPERTY COMPILE_OPTIONS -g 
+        #                          -fsanitize=address
+        #                          -fsanitize=undefined)
+        # set_property(
+        # TARGET ${arg}
+        # PROPERTY LINK_OPTIONS -fsanitize=address 
+        #                       -fsanitize=undefined)
+    # endforeach()
 endmacro()
