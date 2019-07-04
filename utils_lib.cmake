@@ -44,7 +44,39 @@ function(util_add_external_lib
          repo_link
          repo_tag)
     FetchContent_Declare(${lib_name}_content
-    GIT_REPOSITORY ${repo_link}
-    GIT_TAG ${repo_tag})
+                         GIT_REPOSITORY ${repo_link}
+                         GIT_TAG ${repo_tag})
     FetchContent_MakeAvailable(${lib_name}_content)
+endfunction()
+
+# add an external lib and pull the newest data first but then stick to that version
+# util_add_external_lib_non_remote DEST_DIR src_dir
+function(util_add_external_lib_non_remote
+         lib_name
+         repo_link
+         repo_tag)
+    cmake_parse_arguments(PARSED "" "DEST_DIR" "" ${ARGN})
+    if(PARSED_DEST_DIR)
+        set(dest_dir ${PARSED_DEST_DIR})
+    else()
+        set(dest_dir ${FETCHCONTENT_BASE_DIR}/${lib_name}_content-src)
+    endif()
+
+    if(util_${lib_name}_latest_commit)
+        FetchContent_Declare(${lib_name}_content
+                             GIT_REPOSITORY ${repo_link}
+                             GIT_TAG ${util_${lib_name}_latest_commit}
+                             SOURCE_DIR ${dest_dir})
+        FetchContent_MakeAvailable(${lib_name}_content)
+    else()
+        FetchContent_Declare(${lib_name}_content
+                             GIT_REPOSITORY ${repo_link}
+                             GIT_TAG ${repo_tag})
+        FetchContent_MakeAvailable(${lib_name}_content)
+        execute_process(COMMAND git log -1 --format=%H
+                        WORKING_DIRECTORY ${dest_dir}
+                        OUTPUT_VARIABLE GIT_COMMIT_HASH
+                        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        set(util_${lib_name}_latest_commit "${GIT_COMMIT_HASH}" CACHE STRING "${lib_name} latest commit hash") 
+    endif()
 endfunction()
