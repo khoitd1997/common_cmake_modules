@@ -1,3 +1,11 @@
+# used for initializing small stuffs and common options
+macro(util_misc_init)
+    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+    # .rgignore tell vscode not to ignore the _deps dir, which is necessary for fetch_content
+    configure_file(${util_root_cmake_dir}/.rgignore ${CMAKE_SOURCE_DIR}/.rgignore COPYONLY)
+endmacro()
+
 macro(util_add_program_base program_name default_switch append_var)
     string(TOUPPER ${program_name} upper_program_name)
     set(USE_${upper_program_name} "run ${program_name}" ${default_switch})
