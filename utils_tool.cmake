@@ -89,7 +89,6 @@ macro(util_set_general_code_gen_option)
                           -fstack-protector
                           -fstack-protector-strong
                           -fPIC
-                          -shared
                           -pipe
                           -fsanitize=address
                           -fsanitize=undefined
@@ -102,7 +101,8 @@ macro(util_set_general_code_gen_option)
         list(APPEND util_compile_flag -Wduplicated-branches 
                                       -Wduplicated-cond 
                                       -Wlogical-op 
-                                      -Wuseless-cast)
+                                      -Wuseless-cast
+                                      -shared)
     endif()
     if(CODE_GEN_PARSED_EXTRA_COMPILE_FLAG)
         list(APPEND util_compile_flag ${CODE_GEN_PARSED_EXTRA_COMPILE_FLAG})
