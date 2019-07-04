@@ -101,16 +101,16 @@ macro(util_set_general_code_gen_option)
                           -fsanitize=address
                           -fsanitize=undefined
                           -g
-                          -fdiagnostics-color=always
                           -fno-omit-frame-pointer)
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-        # place holder for now
+        list(APPEND util_compile_flag -fcolor-diagnostics)
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         list(APPEND util_compile_flag -Wduplicated-branches 
                                       -Wduplicated-cond 
                                       -Wlogical-op 
                                       -Wuseless-cast
-                                      -shared)
+                                      -shared
+                                      -fdiagnostics-color=always)
     endif()
     if(CODE_GEN_PARSED_EXTRA_COMPILE_FLAG)
         list(APPEND util_compile_flag ${CODE_GEN_PARSED_EXTRA_COMPILE_FLAG})
