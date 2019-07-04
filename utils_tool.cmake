@@ -34,7 +34,7 @@ macro(util_add_cppcheck)
                           "--enable=style,performance,portability,warning"
                           "-q"
                           "--force"
-                          "--suppressions-list=${util_cmake_dir}/cppcheck_suppression.txt")
+                          "--suppressions-list=${util_root_cmake_dir}/default_cppcheck_suppression.txt")
 endmacro()
 
 # util_add_cpplint EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
@@ -49,12 +49,12 @@ endmacro()
 
 # util_add_clang_tidy EXTRA_FLAG extra_flag OVERRIDE_FLAG override_flag
 macro(util_add_clang_tidy)
-    util_add_program_base(cpplint 
+    # copy clang-tidy file to root of the project to make sure clang-tidy can detect it
+    configure_file(${util_root_cmake_dir}/default_clang_tidy.txt ${CMAKE_SOURCE_DIR}/.clang-tidy  COPYONLY)
+    util_add_program_base(clang-tidy 
                           OFF 
                           CMAKE_CXX_CLANG_TIDY
-                          "--filter=-legal/copyright, -whitespace/line_length, -whitespace/ending_newline, -build/c++11, -runtime/references, -whitespace/indent, -build/printf_format"
-                          "--quiet"
-                          "--exclude=_deps/*")
+                          )
 endmacro()
 
 macro(util_check_and_enable_test)
