@@ -1,6 +1,7 @@
 # used for initializing small stuffs and common options
 macro(util_misc_init)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    set(BUILD_SHARED_LIBS OFF)
 
     # .rgignore tell vscode not to ignore the _deps dir, which is necessary for fetch_content
     configure_file(${util_root_cmake_dir}/.rgignore ${CMAKE_SOURCE_DIR}/.rgignore COPYONLY)
