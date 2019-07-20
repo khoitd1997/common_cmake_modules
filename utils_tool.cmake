@@ -125,10 +125,10 @@ endmacro()
 
 macro(util_set_external_code_gen_option)
     set_property(DIRECTORY PROPERTY 
-                           COMPILE_OPTIONS -g 
-                                           -fsanitize=address
-                                           -fsanitize=undefined)
-    set_property(DIRECTORY PROPERTY 
-                           LINK_OPTIONS -fsanitize=address
-                                        -fsanitize=undefined)
+                           COMPILE_OPTIONS -g) 
+                                        #    -fsanitize=address
+                                        #    -fsanitize=undefined)
+    # set_property(DIRECTORY PROPERTY 
+    #                        LINK_OPTIONS -fsanitize=address
+    #                                     -fsanitize=undefined)
 endmacro()
