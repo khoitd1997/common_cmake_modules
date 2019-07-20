@@ -106,7 +106,6 @@ macro(util_set_general_code_gen_option)
                                       -Wduplicated-cond 
                                       -Wlogical-op 
                                       -Wuseless-cast
-                                      -shared
                                       -fdiagnostics-color=always)
     endif()
     if(CODE_GEN_PARSED_EXTRA_COMPILE_FLAG)
