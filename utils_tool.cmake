@@ -113,6 +113,7 @@ macro(util_set_general_code_gen_option)
         list(APPEND util_compile_flag ${CODE_GEN_PARSED_EXTRA_COMPILE_FLAG})
     endif()
     set_property(DIRECTORY PROPERTY COMPILE_OPTIONS ${util_compile_flag})
+    $<$<CONFIG:Debug>:DEBUG_MODE>
 
     SET(CMAKE_CXX_FLAGS_DEBUG  "-g -fsanitize=address -fsanitize=undefined -O0")
     SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
@@ -123,9 +124,9 @@ macro(util_set_general_code_gen_option)
     set_property(DIRECTORY PROPERTY LINK_OPTIONS ${util_link_flag})
 
     set(util_debug_link_flag "-fsanitize=address -fsanitize=undefined")
-    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
-    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
-    set(CMAKE_MODULE_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
+    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG  "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} ${util_debug_link_flag}" CACHE STRING "debug static linker flag" FORCE)
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG  "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} ${util_debug_link_flag}" CACHE STRING "debug shared linker flag" FORCE)
+    set(CMAKE_MODULE_LINKER_FLAGS_DEBUG  "${CMAKE_MODULE_LINKER_FLAGS_DEBUG} ${util_debug_link_flag}" CACHE STRING "debug module linker flag" FORCE)
 endmacro()
 
 macro(util_set_external_code_gen_option)
