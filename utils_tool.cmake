@@ -113,14 +113,14 @@ macro(util_set_general_code_gen_option)
         list(APPEND util_compile_flag ${CODE_GEN_PARSED_EXTRA_COMPILE_FLAG})
     endif()
     set_property(DIRECTORY PROPERTY COMPILE_OPTIONS ${util_compile_flag})
-    add_compile_options($<$<CONFIG:Debug>:-g -fsanitize=address -fsanitize=undefined -O0>
+    add_compile_options($<$<CONFIG:Debug>: -g -static-libasan -fsanitize=address -fsanitize=undefined -O0>
                         $<$<CONFIG:Release>:-O3>)
 
     if(CODE_GEN_PARSED_EXTRA_LINK_FLAG)
         set(util_link_flag ${CODE_GEN_PARSED_EXTRA_LINK_FLAG})
     endif()
     set_property(DIRECTORY PROPERTY LINK_OPTIONS ${util_link_flag})
-    add_link_options($<$<CONFIG:Debug>:-fsanitize=address -fsanitize=undefined>)
+    add_link_options($<$<CONFIG:Debug>: -static-libasan -fsanitize=address -fsanitize=undefined>)
 endmacro()
 
 macro(util_set_external_code_gen_option)
