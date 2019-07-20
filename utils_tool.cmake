@@ -114,23 +114,18 @@ macro(util_set_general_code_gen_option)
     endif()
     set_property(DIRECTORY PROPERTY COMPILE_OPTIONS ${util_compile_flag})
 
-    list(APPEND CMAKE_CXX_FLAGS_DEBUG -g 
-                                      -fsanitize=address 
-                                      -fsanitize=undefined
-                                      -O0)
-
-    list(APPEND CMAKE_CXX_FLAGS_RELEASE -O3) 
+    SET(CMAKE_CXX_FLAGS_DEBUG  "-g -fsanitize=address -fsanitize=undefined -O0")
+    SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
     if(CODE_GEN_PARSED_EXTRA_LINK_FLAG)
         set(util_link_flag ${CODE_GEN_PARSED_EXTRA_LINK_FLAG})
     endif()
     set_property(DIRECTORY PROPERTY LINK_OPTIONS ${util_link_flag})
 
-    set(util_debug_link_flag -fsanitize=address 
-                             -fsanitize=undefined)
-    list(APPEND CMAKE_STATIC_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
-    list(APPEND CMAKE_SHARED_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
-    list(APPEND CMAKE_MODULE_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
+    set(util_debug_link_flag "-fsanitize=address -fsanitize=undefined")
+    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
+    set(CMAKE_SHARED_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
+    set(CMAKE_MODULE_LINKER_FLAGS_DEBUG ${util_debug_link_flag})
 endmacro()
 
 macro(util_set_external_code_gen_option)
